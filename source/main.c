@@ -23,8 +23,6 @@ void generateDirectories(){
         printf("Gravel: Failed to mount the SD File System / !\n");
         return rc;
     }
-	//MARK: RESET RC
-	 rc = 0;
 
     mkdir("/Gravel/", 0700);
 	mkdir("/Gravel/packages/", 0700);
