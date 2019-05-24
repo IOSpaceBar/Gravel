@@ -1,6 +1,5 @@
 #include <string.h>
 #include <stdio.h>
-
 #include <switch.h>
 void Initialize(){
 	   //Initialize console
@@ -18,6 +17,7 @@ int main(int argc, char **argv)
    //START: STARTUP OPERATION
 	Initialize();
    //END: STARTUP OPERATION
+   
     while(appletMainLoop())
     {
         hidScanInput();
