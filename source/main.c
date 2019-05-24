@@ -61,9 +61,12 @@ int main(int argc, char **argv)
 
         consoleUpdate(NULL);
     }
-
+	//MARK: EXIT CONSOLE
     consoleExit(NULL);
+	//MARK: EXIT SPL
 	splExit();
+	//MARK: UNREGISTER ROMFS (ROM FILE SYSTEM)
 	romfsExit();
+	//MARK: RETURN AKA FINISH EXIT
     return 0;
 }
