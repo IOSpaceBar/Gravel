@@ -2,21 +2,55 @@
 #include <stdio.h>
 #include <switch.h>
 void Initialize(){
-	   //Initialize console
+	   //MARK: Initialize console
     consoleInit(NULL);   
-	  //Initialize SPL for system functions
+	  //MARK: Initialize SPL for system functions
     splInitialize();
-	 //Initialize romfs (ROM FILE SYSTEM)
+	 //MARK: Initialize romfs (ROM FILE SYSTEM)
 	romfsInit();
-	 //return back to main but with null
+	 //MARK: return back to main but with null
 	 return;
-   }
+}
+
+void generateDirectories(){
+	//MARK: RESULT = RC (0)
+	Result rc = 0;
+	//MARK: FILE SYSTEM
+    FsFileSystem FS;
+    
+    if (R_FAILED(rc = fsMountSdcard(&FS)))
+    {
+        printf("Gravel: Failed to mount the SD File System / !\n");
+        return rc;
+    }
+	//MARK: RESET RC
+	 rc = 0;
+
+    mkdir("/Gravel/", 0700);
+	mkdir("/Gravel/packages/", 0700);
+	mkdir("/Gravel/header/", 0700);
+	//CLOSE &FS FOR SAFETY.
+	fsFsClose(&FS);
+	//MARK: CREATE HEADER DATA 
+	FILE *fp;
+	fp=fopen("sdmc:/Gravel/header/header.gravel","w");
+	fclose(fp);
+} 
 int main(int argc, char **argv)
 {
    
    //START: STARTUP OPERATION
 	Initialize();
-   //END: STARTUP OPERATION
+	FILE *f = fopen("sdmc:/Gravel/header/header.gravel", "rb");
+        if (f == NULL) {
+			//NOTE: If the header data (what we use to detect if this is the first time ran on this SD Card) doesnt exist, generate dir's
+            generateDirectories();
+            
+        } else {
+            //MARK: RETURN
+			return;
+        }
+	//END: STARTUP OPERATION
    
    //MARKER: MENU VALUES
    int menu1 = 2;
