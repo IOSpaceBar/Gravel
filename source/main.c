@@ -2,13 +2,6 @@
 #include <stdio.h>
 #include <switch.h>
 
-void initialize(){
-	   //MARK: Initialize console
-    consoleInit(NULL);   
-	  //MARK: Initialize SPL for system functions
-    splInitialize();
-}
-
 void updateConsole(int current){
 	consoleClear();
 	printf("GRAVEL by IOSpaceBar\n");
@@ -28,7 +21,8 @@ int main(int argc, char **argv)
 {
    
    //START: STARTUP OPERATION
-	initialize();
+	consoleInit(NULL);
+
 	FILE *f = fopen("sdmc:/Gravel/header/header.gravel", "rb");
         if (!f) {
 			//NOTE: If the header data (what we use to detect if this is the first time ran on this SD Card) doesnt exist, generate dir's
@@ -79,8 +73,6 @@ int main(int argc, char **argv)
     }
 	//MARK: EXIT CONSOLE
     consoleExit(NULL);
-	//MARK: EXIT SPL
-	splExit();
 	//MARK: RETURN AKA FINISH EXIT
     return 0;
 }

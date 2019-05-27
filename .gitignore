@@ -5,6 +5,8 @@
 *.obj
 *.elf
 *.nacp
+*.nso
+*.pfs0
 
 # Precompiled Headers
 *.gch
